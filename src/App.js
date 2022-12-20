@@ -63,6 +63,7 @@ function App() {
   //limpar fomulário
   const limparForm = () => {
     setObjProduto(produto);
+    setBtnCadastrar(true);
   }
 
   //selecionar produto
@@ -74,7 +75,7 @@ function App() {
   return (
     <div className="App container vh-100">
       {showAlert ? <Alerta mensagem={msgAlert} tipo={tipoAlert} setShowAlert={setShowAlert} /> : ''}
-      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} />
+      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparForm}/>
       <Tabela produtos={produtos} selecionar={selecionarProduto}/>
     </div>
   );
