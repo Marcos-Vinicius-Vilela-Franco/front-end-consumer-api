@@ -60,6 +60,47 @@ function App() {
       })
   }
 
+  //remover produto
+  const remover = () => {
+    fetch('http://localhost:8080/remover/' + objProduto.codigo, {
+      method: 'delete',
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+      .then(retorno => retorno.json())
+      .then(retorno_convertido => {
+        setMsgAlert(retorno_convertido.mensagem);
+        setTipoAlert("success");
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 4000)
+
+
+        //cópia de vetor de produtos
+        let vetorTemp = [...produtos];
+
+        //ímdice
+        let indice= vetorTemp.findIndex((p)=>{
+            return p.codigo === objProduto.codigo;
+        });
+
+        //remover procuto do vetorTemp
+
+        vetorTemp.splice(indice,1);
+
+        //atualizar vetor de produtos
+        setProdutos(vetorTemp);
+
+        //limpar formulario
+        limparForm();
+
+
+      })
+  }
+
   //limpar fomulário
   const limparForm = () => {
     setObjProduto(produto);
@@ -67,7 +108,7 @@ function App() {
   }
 
   //selecionar produto
-  const selecionarProduto = (i) =>{
+  const selecionarProduto = (i) => {
     setObjProduto(produtos[i]);
     setBtnCadastrar(false);
   }
@@ -75,8 +116,8 @@ function App() {
   return (
     <div className="App container vh-100">
       {showAlert ? <Alerta mensagem={msgAlert} tipo={tipoAlert} setShowAlert={setShowAlert} /> : ''}
-      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparForm}/>
-      <Tabela produtos={produtos} selecionar={selecionarProduto}/>
+      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparForm} remover={remover}/>
+      <Tabela produtos={produtos} selecionar={selecionarProduto} />
     </div>
   );
 }

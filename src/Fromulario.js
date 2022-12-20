@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar}) {
+function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar,remover}) {
     return (
         <div className='mt-5 d-flex justify-content-center align-items-center'>
             <div className='m-3 w-50 flex-column shadow-sm p-3 mb-5 bg-light rounded d-flex align-items-center justify-content-center'>
@@ -30,7 +30,7 @@ function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar}) {
                                     <Button variant="primary" type="button">
                                         Alterar
                                     </Button>
-                                    <Button variant="warning" type="button">
+                                    <Button onClick={remover} variant="warning" type="button" value='remover'>
                                         Remover
                                     </Button>
                                     <Button onClick={cancelar} variant="danger" type="button" value='cancelar' >
