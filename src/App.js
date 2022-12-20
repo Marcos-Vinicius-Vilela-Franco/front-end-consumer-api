@@ -82,24 +82,73 @@ function App() {
         //cópia de vetor de produtos
         let vetorTemp = [...produtos];
 
-        //ímdice
-        let indice= vetorTemp.findIndex((p)=>{
-            return p.codigo === objProduto.codigo;
+        //índice
+        let indice = vetorTemp.findIndex((p) => {
+          return p.codigo === objProduto.codigo;
         });
 
-        //remover procuto do vetorTemp
+        //remover produto do vetorTemp
 
-        vetorTemp.splice(indice,1);
+        vetorTemp.splice(indice, 1);
 
         //atualizar vetor de produtos
         setProdutos(vetorTemp);
 
-        //limpar formulario
+        //limpar formulário
         limparForm();
 
 
       })
   }
+
+  //alterar produto
+  const alterar = () => {
+    fetch('http://localhost:8080/alterar', {
+      method: 'put',
+      body: JSON.stringify(objProduto),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+      .then(retorno => retorno.json())
+      .then(retorno_convertido => {
+        if (retorno_convertido.mensagem !== undefined) {
+          setMsgAlert(retorno_convertido.mensagem);
+          setTipoAlert("danger");
+          setShowAlert(true);
+        } else {
+         
+          setMsgAlert("Alterado com sucesso!");
+          setTipoAlert("success");
+          setShowAlert(true);
+          setTimeout(() => {
+            setShowAlert(false);
+          }, 4000)
+
+          //cópia de vetor de produtos
+        let vetorTemp = [...produtos];
+
+        //índice
+        let indice = vetorTemp.findIndex((p) => {
+          return p.codigo === objProduto.codigo;
+        });
+
+        //alterar produto do vetorTemp
+
+        vetorTemp[indice] = objProduto;
+
+        //atualizar vetor de produtos
+        setProdutos(vetorTemp);
+
+
+          limparForm()
+        }
+        
+      })
+  }
+
+
 
   //limpar fomulário
   const limparForm = () => {
@@ -116,7 +165,7 @@ function App() {
   return (
     <div className="App container vh-100">
       {showAlert ? <Alerta mensagem={msgAlert} tipo={tipoAlert} setShowAlert={setShowAlert} /> : ''}
-      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparForm} remover={remover}/>
+      <Fromulario button={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objProduto} cancelar={limparForm} remover={remover} alterar={alterar}/>
       <Tabela produtos={produtos} selecionar={selecionarProduto} />
     </div>
   );

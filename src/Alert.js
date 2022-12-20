@@ -8,7 +8,7 @@ export default function Alerta({mensagem,tipo,setShowAlert}) {
   
     return (
       <Alert className='m-4' variant={tipo} onClose={() => setShowAlert(false)} dismissible>
-        {tipo==="danger"?<Alert.Heading>Erro ao cadastrar!</Alert.Heading>:<Alert.Heading>Cadastrado com Sucesso!</Alert.Heading>}
+        {tipo==="danger"?<Alert.Heading>Erro ao cadastrar!</Alert.Heading>:<Alert.Heading>Sucesso!</Alert.Heading>}
         <p>
          {mensagem}
         </p>

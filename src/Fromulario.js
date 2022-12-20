@@ -3,11 +3,11 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar,remover}) {
+function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar,remover,alterar}) {
     return (
         <div className='mt-5 d-flex justify-content-center align-items-center'>
             <div className='m-3 w-50 flex-column shadow-sm p-3 mb-5 bg-light rounded d-flex align-items-center justify-content-center'>
-                <h1 className='display-5'>Fromulario</h1>
+                <h1 className='display-5'>Adicionar Produto</h1>
                 <Form className=''>
                     <Row className="p-3">
                         <Form.Group as={Col} controlId="formGridNome">
@@ -27,7 +27,7 @@ function Formulario({ button, eventoTeclado,cadastrar,obj,cancelar,remover}) {
                                     Cadastrar
                                 </Button> :
                                 <>
-                                    <Button variant="primary" type="button">
+                                    <Button variant="primary" onClick={alterar} type="button" value='alterar'>
                                         Alterar
                                     </Button>
                                     <Button onClick={remover} variant="warning" type="button" value='remover'>
